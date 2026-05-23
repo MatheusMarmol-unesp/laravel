@@ -4,17 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Aluno;
 use App\Models\Curso;
 
-class CursoController extends Controller
+class AlunoController extends Controller
 {
     public function index(){
-        $rows = Curso::all();
-        return view('admin.cursos.index', compact('rows'));
+        $rows = Aluno::all();
+        return view('admin.alunos.index', compact('rows'));
     }
 
     public function adicionar() {
-        return view('admin.cursos.adicionar');
+        $cursos = Curso::all();
+        return view('admin.alunos.adicionar', compact('cursos'));
     }
 
     public function salvar(Request $request) {
@@ -25,17 +27,18 @@ class CursoController extends Controller
             $imagem->move(public_path('imagens'), $nome);
             $dados['imagem'] = 'imagens/' . $nome;
         }
-        Curso::create($dados);
-        return redirect()->route('admin.cursos');
+        Aluno::create($dados);
+        return redirect()->route('admin.alunos');
     }
 
     public function editar($id) {
-        $linha = Curso::find($id);
-        return view('admin.cursos.editar', compact('linha'));
+        $linha = Aluno::find($id);
+        $cursos = Curso::all();
+        return view('admin.alunos.editar', compact('linha', 'cursos'));
     }
 
     public function atualizar(Request $request, $id) {
-        $linha = Curso::find($id);
+        $linha = Aluno::find($id);
         $dados = $request->all();
         if ($request->hasFile('imagem')) {
             $imagem = $request->file('imagem');
@@ -44,11 +47,11 @@ class CursoController extends Controller
             $dados['imagem'] = 'imagens/' . $nome;
         }
         $linha->update($dados);
-        return redirect()->route('admin.cursos');
+        return redirect()->route('admin.alunos');
     }
 
     public function excluir($id) {
-        Curso::find($id)->delete();
-        return redirect()->route('admin.cursos');
+        Aluno::find($id)->delete();
+        return redirect()->route('admin.alunos');
     }
 }

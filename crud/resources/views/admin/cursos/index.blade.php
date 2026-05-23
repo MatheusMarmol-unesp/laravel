@@ -9,7 +9,7 @@
     <div class='row'>
         <table>
             <thead>
-                <tr>  <!-- CABECALHO -->
+                <tr>
                     <td>Id</td><td>Titulo</td><td>Descrição</td>
                     <td>Publicado</td><td>Valor</td>
                     <td>Imagem</td>
@@ -17,12 +17,12 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($rows as $row)   <!-- LOOP PRA LER A TABELA -->
+            @foreach($rows as $row)
                 <tr>
                     <td>{{ $row->id }}</td><td>{{ $row->titulo }}</td><td>{{ $row->descricao }}</td>
                     <td>{{ $row->publicado }}</td><td>{{ $row->valor }}</td>
                     <td><img src="{{ asset($row->imagem) }}" alt="{{ $row->titulo }}"></td>
-                    <td>   <!-- COLUNA COM ALTERAR E EXCLUIR -->
+                    <td>
                         <a class='btn deep-orange' href="{{ route('admin.cursos.editar',$row->id) }}">Alterar</a>
                         <a class='btn rede' href="{{ route('admin.cursos.excluir',$row->id) }}">Excluir</a>
                     </td>
@@ -31,7 +31,7 @@
             </tbody>
         </table>   
     </div>
-    <div class='row'>  <!-- BOTAO ADICIONAR -->
+    <div class='row'>
         <a class='btn blue' href="{{ route('admin.cursos.adicionar')}}">Adicionar</a>
     </div>
 </div>
